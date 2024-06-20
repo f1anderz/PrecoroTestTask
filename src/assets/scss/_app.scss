@@ -1,5 +1,9 @@
 @use "./variables";
 
+* {
+  font-family: variables.$font;
+}
+
 html {
   scroll-behavior: smooth;
 }

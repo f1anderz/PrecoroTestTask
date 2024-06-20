@@ -1,6 +1,6 @@
 <template>
   <header>
-
+    <PTTHeader />
   </header>
   <main>
 
@@ -8,9 +8,9 @@
 </template>
 
 <script setup lang="ts">
-
+import PTTHeader from './components/PTTHeader.vue'
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/style';
 </style>
