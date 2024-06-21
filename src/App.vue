@@ -3,12 +3,12 @@
     <PTTHeader />
   </header>
   <main>
-
+    <RouterView />
   </main>
 </template>
 
 <script setup lang="ts">
-import PTTHeader from './components/PTTHeader.vue'
+import PTTHeader from './components/Header/PTTHeader.vue'
 </script>
 
 <style lang="scss">

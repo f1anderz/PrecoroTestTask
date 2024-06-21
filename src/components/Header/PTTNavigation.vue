@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-
 </script>
 
 <style lang="scss" scoped>
@@ -19,7 +18,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: .75rem;
+  gap: 1rem;
   font-weight: 400;
 }
 </style>

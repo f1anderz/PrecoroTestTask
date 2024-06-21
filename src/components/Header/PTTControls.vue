@@ -42,6 +42,7 @@
     align-items: center;
     gap: .5rem;
     border-radius: 1rem;
+    font-weight: 400;
 
     & img,
     & div {
@@ -55,6 +56,15 @@
       & img,
       & div {
         transform: translateY(.04rem);
+      }
+
+      &:last-child {
+
+        & img,
+        & div {
+          transform: translate(.02rem, -.04rem);
+
+        }
       }
     }
 

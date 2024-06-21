@@ -21,5 +21,6 @@ import PTTControls from './PTTControls.vue'
   align-items: center;
   background: style.$header-gradient;
   color: style.$secondary-text-color;
+  box-shadow: 0px 16px 16px -16px rgba(54, 62, 113, 0.5);
 }
 </style>
