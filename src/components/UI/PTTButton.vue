@@ -18,13 +18,21 @@ const emit = defineEmits(['click']);
   border-radius: 1rem;
   background: style.$text-color;
   color: style.$secondary-text-color;
+  transition: transform .3s ease;
 
   &:hover {
     cursor: default;
+    background: style.$hover-button-color;
+    transform: translate(.02rem, -.02rem);
   }
 }
 
 .disabled {
   background: style.$disabled-button-color;
+
+  &:hover {
+    background: style.$disabled-button-color;
+    transform: none;
+  }
 }
 </style>

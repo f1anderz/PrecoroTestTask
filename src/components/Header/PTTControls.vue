@@ -63,7 +63,6 @@
         & img,
         & div {
           transform: translate(.02rem, -.04rem);
-
         }
       }
     }
