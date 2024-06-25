@@ -29,7 +29,7 @@ const props = defineProps(['header', 'description']);
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  border-bottom: 1px solid rgba($color: style.$list-color, $alpha: .1);
+  border-bottom: 1px solid rgba($color: style.$list-color, $alpha: 0.1);
 
   &:last-child {
     border-bottom: none;
@@ -40,7 +40,7 @@ const props = defineProps(['header', 'description']);
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: .25rem;
+    gap: 0.25rem;
 
     &-header {
       font-weight: 600;
@@ -49,13 +49,13 @@ const props = defineProps(['header', 'description']);
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
     }
 
     &-description {
       font-weight: 500;
-      font-size: .875rem;
-      color: rgba($color: style.$text-color, $alpha: .5);
+      font-size: 0.875rem;
+      color: rgba($color: style.$text-color, $alpha: 0.5);
     }
   }
 }

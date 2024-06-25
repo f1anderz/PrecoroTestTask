@@ -6,20 +6,34 @@
       <div class="approvers-table-head-title">Backup Approver</div>
     </div>
     <transition-group name="table">
-      <div class="approvers-table-cell" v-for="document in tableData" :key="document.id">
+      <div
+        class="approvers-table-cell"
+        v-for="document in tableData"
+        :key="document.id"
+      >
         <div class="approvers-table-cell-row-name">{{ document.name }}</div>
-        <div class="approvers-table-cell-row" style="grid-column: 2 / 4;">
+        <div class="approvers-table-cell-row" style="grid-column: 2 / 4">
           <transition-group name="steps">
-            <div class="approvers-table-cell-row-steps" v-for="step in document.approvalSteps" :key="step.id">
+            <div
+              class="approvers-table-cell-row-steps"
+              v-for="step in document.approvalSteps"
+              :key="step.id"
+            >
               <div class="approvers-table-cell-row-steps-step">
                 <div class="approvers-table-cell-row-steps-step-number">
                   {{ step.stepNumber }}
                 </div>
-                <div class="approvers-table-cell-row-steps-step-name">{{ step.stepName }}</div>
+                <div class="approvers-table-cell-row-steps-step-name">
+                  {{ step.stepName }}
+                </div>
               </div>
-              <PTTSelect class="approvers-table-cell-row-steps-select" placeholder="Select" borders="false"
+              <PTTSelect
+                class="approvers-table-cell-row-steps-select"
+                placeholder="Select"
+                borders="false"
                 @userSelect="(user: User) => { handleApproverSelect({ id: step.id, user: user }) }"
-                @userRemove="handleUserRemove" />
+                @userRemove="handleUserRemove"
+              />
             </div>
           </transition-group>
         </div>
@@ -29,50 +43,64 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from 'vue'
-import { AxiosResponse, AxiosError } from 'axios'
-import dataRequests from '../../api/data'
-import { Document, ApprovalStep, User, BackupApprover } from '../../common/types'
-import PTTSelect from '../UI/PTTSelect.vue'
-import { useVacationStore } from '../../stores/vacation'
+import { ref, Ref } from 'vue';
+import { AxiosResponse, AxiosError } from 'axios';
+import dataRequests from '../../api/data';
+import {
+  Document,
+  ApprovalStep,
+  User,
+  BackupApprover,
+} from '../../common/types';
+import PTTSelect from '../UI/PTTSelect.vue';
+import { useVacationStore } from '../../stores/vacation';
 
-const vacationStore = useVacationStore()
+const vacationStore = useVacationStore();
 
-const tableData: Ref<Document[]> = ref([])
+const tableData: Ref<Document[]> = ref([]);
 
 const loadData = () => {
-  dataRequests.getData().then(({ data: response }: AxiosResponse) => {
-    response.data.documents.forEach((document: Document) => {
-      response.data.approvalSteps.forEach((approvalStep: ApprovalStep) => {
-        if (approvalStep.documentId === document.id) {
-          vacationStore.approversCount++;
-          if (document.approvalSteps) {
-            document.approvalSteps.push(approvalStep);
-          } else {
-            document.approvalSteps = [approvalStep];
+  dataRequests
+    .getData()
+    .then(({ data: response }: AxiosResponse) => {
+      response.data.documents.forEach((document: Document) => {
+        response.data.approvalSteps.forEach((approvalStep: ApprovalStep) => {
+          if (approvalStep.documentId === document.id) {
+            vacationStore.approversCount++;
+            if (document.approvalSteps) {
+              document.approvalSteps.push(approvalStep);
+            } else {
+              document.approvalSteps = [approvalStep];
+            }
           }
-        }
-      })
+        });
+      });
+      tableData.value = response.data.documents
+        .filter((document: Document) => {
+          if (document.approvalSteps) {
+            return document;
+          }
+        })
+        .sort((document1: Document, document2: Document) => {
+          return (
+            document2.approvalSteps.length - document1.approvalSteps.length
+          );
+        });
     })
-    tableData.value = response.data.documents.filter((document: Document) => {
-      if (document.approvalSteps) {
-        return document;
-      }
-    }).sort((document1: Document, document2: Document) => { return document2.approvalSteps.length - document1.approvalSteps.length })
-  }).catch((error: AxiosError) => {
-    console.log(error);
-  });
-}
+    .catch((error: AxiosError) => {
+      console.log(error);
+    });
+};
 
 loadData();
 
 const handleApproverSelect = (approver: BackupApprover) => {
-  vacationStore.data.approverUsers.push(approver)
-}
+  vacationStore.data.approverUsers.push(approver);
+};
 
 const handleUserRemove = (email: string) => {
   vacationStore.removeApprover(email);
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -89,13 +117,13 @@ const handleUserRemove = (email: string) => {
     display: grid;
     grid-template-columns: subgrid;
     background: style.$table-header-background;
-    border-radius: .5rem .5rem 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
 
     &-title {
-      padding: .4rem 1.1rem;
-      border-left: 1px solid rgba($color: style.$text-color, $alpha: .05);
+      padding: 0.4rem 1.1rem;
+      border-left: 1px solid rgba($color: style.$text-color, $alpha: 0.05);
       color: style.$ternary-text-color;
-      font-size: .75rem;
+      font-size: 0.75rem;
       font-weight: 600;
 
       &:first-child {
@@ -113,19 +141,18 @@ const handleUserRemove = (email: string) => {
       margin-top: -1.35rem;
 
       .approvers-table-cell-row-name {
-        border-radius: 0 0 0 .5rem;
+        border-radius: 0 0 0 0.5rem;
       }
 
       .approvers-table-cell-row-steps {
         &:last-child {
-          border-radius: 0 0 .5rem .5rem;
+          border-radius: 0 0 0.5rem 0.5rem;
         }
 
         &:first-child {
           .approvers-table-cell-row-steps-select {
             border-radius: 0 0 0 0;
           }
-
         }
       }
     }
@@ -133,13 +160,13 @@ const handleUserRemove = (email: string) => {
     &-row {
       &-name {
         height: fit-content;
-        padding: .7rem 1rem;
-        border: 1px solid rgba($color: style.$list-color, $alpha: .1);
+        padding: 0.7rem 1rem;
+        border: 1px solid rgba($color: style.$list-color, $alpha: 0.1);
         border-right: none;
         color: style.$text-color;
-        font-size: .875rem;
+        font-size: 0.875rem;
         font-weight: 700;
-        border-radius: .5rem 0 0 .5rem;
+        border-radius: 0.5rem 0 0 0.5rem;
       }
 
       &-steps {
@@ -148,13 +175,15 @@ const handleUserRemove = (email: string) => {
 
         &:last-child {
           .approvers-table-cell-row-steps-step {
-            border-radius: 0 0 0 .5rem;
-            border-bottom: 1px solid rgba($color: style.$list-color, $alpha: .1);
+            border-radius: 0 0 0 0.5rem;
+            border-bottom: 1px solid
+              rgba($color: style.$list-color, $alpha: 0.1);
           }
 
           .approvers-table-cell-row-steps-select {
-            border-radius: 0 0 .5rem 0;
-            border-bottom: 1px solid rgba($color: style.$list-color, $alpha: .1);
+            border-radius: 0 0 0.5rem 0;
+            border-bottom: 1px solid
+              rgba($color: style.$list-color, $alpha: 0.1);
           }
         }
 
@@ -164,18 +193,18 @@ const handleUserRemove = (email: string) => {
           }
 
           .approvers-table-cell-row-steps-select {
-            border-radius: 0 .5rem 0 0;
+            border-radius: 0 0.5rem 0 0;
           }
         }
 
         &-step {
-          padding: .6rem .5rem;
+          padding: 0.6rem 0.5rem;
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
-          gap: .5rem;
-          border: 1px solid rgba($color: style.$list-color, $alpha: .1);
+          gap: 0.5rem;
+          border: 1px solid rgba($color: style.$list-color, $alpha: 0.1);
           border-bottom: none;
           border-right: none;
 
@@ -187,29 +216,28 @@ const handleUserRemove = (email: string) => {
             color: style.$secondary-text-color;
             line-height: 1.25rem;
             border-radius: 50%;
-            font-size: .75rem;
+            font-size: 0.75rem;
             font-weight: 600;
           }
 
           &-name {
             position: relative;
             color: style.$text-color;
-            font-size: .875rem;
+            font-size: 0.875rem;
             font-weight: 600;
           }
         }
 
         &-select {
-          padding: 0 .5rem;
+          padding: 0 0.5rem;
           display: flex;
           flex-direction: row;
           align-items: center;
-          border: 1px solid rgba($color: style.$list-color, $alpha: .1);
+          border: 1px solid rgba($color: style.$list-color, $alpha: 0.1);
           border-bottom: none;
         }
       }
     }
   }
-
 }
 </style>

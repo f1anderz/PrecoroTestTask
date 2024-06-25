@@ -2,19 +2,24 @@
   <div class="ptt__main-header">
     <div class="ptt__main-header-text">Vacation Mode Settings</div>
     <div class="ptt__main-header-button">
-      <PTTButton :enabled="vacationStore.allowUpdate" @click="handleUpdateClick">Update</PTTButton>
-      <PTTRequiredPopup :visible="showRequiredPopup" class="ptt__main-header-button-popup" />
+      <PTTButton :enabled="vacationStore.allowUpdate" @click="handleUpdateClick"
+        >Update</PTTButton
+      >
+      <PTTRequiredPopup
+        :visible="showRequiredPopup"
+        class="ptt__main-header-button-popup"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import PTTButton from '../UI/PTTButton.vue'
-import PTTRequiredPopup from '../UI/PTTRequiredPopup.vue'
+import { ref, watch } from 'vue';
+import PTTButton from '../UI/PTTButton.vue';
+import PTTRequiredPopup from '../UI/PTTRequiredPopup.vue';
 import { useVacationStore } from '../../stores/vacation';
 
-const vacationStore = useVacationStore()
+const vacationStore = useVacationStore();
 
 const showRequiredPopup = ref(false);
 
@@ -22,15 +27,15 @@ const handleUpdateClick = () => {
   if (!vacationStore.allowUpdate) {
     showRequiredPopup.value = true;
   } else {
-    vacationStore.patchData()
+    vacationStore.patchData();
   }
-}
+};
 
 watch(vacationStore, () => {
   if (vacationStore.allowUpdate) {
     showRequiredPopup.value = false;
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -38,7 +43,7 @@ watch(vacationStore, () => {
 
 .ptt__main-header {
   width: 100%;
-  padding: .75rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

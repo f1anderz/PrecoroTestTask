@@ -10,30 +10,30 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps(['user'])
-const emit = defineEmits(['click'])
+const props = defineProps(['user']);
+const emit = defineEmits(['click']);
 </script>
 
 <style lang="scss" scoped>
 @use '@/assets/scss/style';
 
 .ptt__select-item {
-  padding: .25rem .5rem;
+  padding: 0.25rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: .25rem;
+  gap: 0.25rem;
   color: style.$text-color;
 
   &:hover {
     cursor: pointer;
-    background: rgba($color: style.$text-color, $alpha: .1);
+    background: rgba($color: style.$text-color, $alpha: 0.1);
   }
 
   &-email {
-    padding-left: .5rem;
-    color: rgba($color: style.$text-color, $alpha: .75)
+    padding-left: 0.5rem;
+    color: rgba($color: style.$text-color, $alpha: 0.75);
   }
 }
 </style>

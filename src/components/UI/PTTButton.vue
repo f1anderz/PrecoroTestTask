@@ -1,5 +1,9 @@
 <template>
-  <div class="ptt__button" :class="{ 'disabled': !props.enabled }" @click="emit('click')">
+  <div
+    class="ptt__button"
+    :class="{ disabled: !props.enabled }"
+    @click="emit('click')"
+  >
     <slot></slot>
   </div>
 </template>
@@ -13,17 +17,17 @@ const emit = defineEmits(['click']);
 @use '@/assets/scss/style';
 
 .ptt__button {
-  padding: .3rem 1rem;
-  font-size: .875rem;
+  padding: 0.3rem 1rem;
+  font-size: 0.875rem;
   border-radius: 1rem;
   background: style.$text-color;
   color: style.$secondary-text-color;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 
   &:hover {
     cursor: default;
     background: style.$hover-button-color;
-    transform: translate(.02rem, -.02rem);
+    transform: translate(0.02rem, -0.02rem);
   }
 }
 
