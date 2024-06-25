@@ -2,12 +2,16 @@
   <div class="ptt__main-header">
     <div class="ptt__main-header-text">Vacation Mode Settings</div>
     <div class="ptt__main-header-button">
-      <PTTButton :enabled="vacationStore.allowUpdate" @click="handleUpdateClick"
+      <PTTButton
+        id="show-popup"
+        :enabled="vacationStore.allowUpdate"
+        @click="handleUpdateClick"
         >Update</PTTButton
       >
       <PTTRequiredPopup
         :visible="showRequiredPopup"
         class="ptt__main-header-button-popup"
+        v-click-outside="handleOutsideClick"
       />
     </div>
   </div>
@@ -31,6 +35,12 @@ const handleUpdateClick = () => {
   }
 };
 
+const handleOutsideClick = (e: any) => {
+  if (e.target.id !== 'show-popup') {
+    showRequiredPopup.value = false;
+  }
+};
+
 watch(vacationStore, () => {
   if (vacationStore.allowUpdate) {
     showRequiredPopup.value = false;
@@ -48,7 +58,7 @@ watch(vacationStore, () => {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(29, 36, 82, 0.1);
+  border-bottom: 1px solid rgba(29, 36, 82, 0.1);
 
   &-text {
     font-size: 1.25rem;

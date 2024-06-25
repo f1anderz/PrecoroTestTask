@@ -1,11 +1,11 @@
 <template>
-  <div
+  <button
     class="ptt__button"
     :class="{ disabled: !props.enabled }"
     @click="emit('click')"
   >
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -20,9 +20,14 @@ const emit = defineEmits(['click']);
   padding: 0.3rem 1rem;
   font-size: 0.875rem;
   border-radius: 1rem;
+  border: none;
   background: style.$text-color;
   color: style.$secondary-text-color;
   transition: transform 0.3s ease;
+
+  &:focus {
+    outline: none;
+  }
 
   &:hover {
     cursor: default;

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { User, BackupApprover } from '../common/types';
+import { User, BackupApprover, patchData } from '../common/types';
 import dataRequest from '../api/data';
 
 export const useVacationStore = defineStore('vacation', {
@@ -33,7 +33,7 @@ export const useVacationStore = defineStore('vacation', {
   },
   actions: {
     patchData() {
-      const newData = {
+      const newData: patchData = {
         vacationMode: {
           enable: true,
           startDate: this.data.vacationDate[0].getTime() / 1000,

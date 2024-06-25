@@ -21,3 +21,20 @@ export interface BackupApprover {
   id: number;
   user: User;
 }
+
+export interface vacationModeSettings {
+  enable: boolean;
+  startDate: number;
+  endDate: number;
+}
+
+export interface patchBackupApprover {
+  id: number;
+  backupApproverId: number;
+}
+
+export interface patchData {
+  vacationMode: vacationModeSettings;
+  substituteUser: BackupApprover;
+  backupApprovers: patchBackupApprover[];
+}

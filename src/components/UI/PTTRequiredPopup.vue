@@ -35,6 +35,10 @@ const props = defineProps(['visible']);
     border-bottom: 4px solid rgba($color: style.$text-color, $alpha: 0.9);
     border-left: 4px solid transparent;
   }
+
+  &:hover {
+    cursor: default;
+  }
 }
 
 .hidden {

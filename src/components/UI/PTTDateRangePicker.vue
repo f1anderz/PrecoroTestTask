@@ -1,11 +1,13 @@
 <template>
   <div class="ptt__date-range">
-    <div class="ptt__date-range-input">
+    <div
+      class="ptt__date-range-input"
+      @click="rangePickerVisible = !rangePickerVisible"
+    >
       <img
-        id="open-range"
+        class="ptt__date-range-input-icon"
         src="@/assets/images/icons/calendar.svg"
         alt="Date"
-        @click="rangePickerVisible = !rangePickerVisible"
       />
       <div class="ptt__date-range-input-field">
         From
@@ -29,9 +31,10 @@
       </div>
       <img
         v-if="date"
+        class="ptt__date-range-input-close"
         src="@/assets/images/icons/cross-circle.svg"
         alt="Cancel"
-        @click="date = null"
+        @click="handleClearDateRange"
       />
     </div>
     <VueDatePicker
@@ -72,9 +75,14 @@ const dateRange: Ref<string[]> = computed(() => {
 });
 
 const handleOutsideClick = (e: any) => {
-  if (e.target.id !== 'open-range') {
+  if (!e.target.classList[0].includes('ptt__date-range-input')) {
     rangePickerVisible.value = false;
   }
+};
+
+const handleClearDateRange = () => {
+  rangePickerVisible.value = true;
+  date.value = null;
 };
 
 watch(date, () => {

@@ -1,7 +1,13 @@
-import axios from 'axios'
+import axios from 'axios';
+
+const base_url = 'https://precoro-vuejs-test-task-api.avramch.workers.dev';
 
 export default {
-  async getUsers(searchString: string = '', page: number = 1) {
-    return await axios.get(`https://precoro-vuejs-test-task-api.avramch.workers.dev/users?search=${searchString}&page=${page}`);
-  }
-}
+  async getUsers(searchString?: string, page?: number) {
+    let params = '';
+    if (searchString && page) {
+      params = `? search = ${searchString}& page=${page}`;
+    }
+    return await axios.get(base_url + '/users' + params);
+  },
+};
